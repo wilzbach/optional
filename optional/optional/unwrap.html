@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Function unwrap</title>
+		<link rel="stylesheet" type="text/css" href="../../styles/ddox.css"/>
+		<link rel="stylesheet" href="../../prettify/prettify.css" type="text/css"/>
+		<script type="text/javascript" src="../../scripts/jquery.js">/**/</script><script type="text/javascript" src="../../scripts/ddox.js">/**/</script>
+	</head>
+	<body onload="setupDdox();">
+		<nav id="main-nav">
+			<noscript>
+				<p style="color: red">The search functionality needs JavaScript enabled</p>
+			</noscript>
+			<div id="symbolSearchPane" style="display: none">
+				<form action="#" method="GET">
+					<input id="symbolSearch" type="text" name="q" placeholder="Search for symbols" autocomplete="off" onchange="performSymbolSearch(40);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/>
+				</form>
+				<ul id="symbolSearchResults" class="symbolList" style="display: none"></ul><script type="application/javascript" src="../../symbols.js"></script><script type="application/javascript">var symbolSearchRootDir = "../../";
+$('#symbolSearchPane').show();</script>
+			</div>
+			<ul class="tree-view">
+				<li class="tree-view ">
+					<div class="package ">
+						<a href="../../optional.html">optional</a>
+					</div>
+			<ul class="tree-view">
+				<li>
+					<div class="module ">
+						<a href="../../optional/notnull.html">notnull</a>
+					</div>
+				</li>
+				<li>
+					<div class="module selected">
+						<a href="../../optional/optional.html">optional</a>
+					</div>
+				</li>
+				<li>
+					<div class="module ">
+						<a href="../../optional/traits.html">traits</a>
+					</div>
+				</li>
+			</ul>
+				</li>
+			</ul>
+		</nav>
+		<div id="main-contents">
+			<h1>Function unwrap</h1><p>Get pointer to value. If T is a reference type then T is returned
+</p>
+			<div class="prototype">
+				<code class="lang-d">
+					<div class="single-prototype">
+			<span class="kwd">auto ref </span><span class="kwd">auto</span> <span class="pln">unwrap</span>(T)
+			<span class="pun">(</span>
+			<br/>
+			&nbsp;&nbsp;<span class="kwd">auto ref </span><span class="pln">T</span> <span class="pln">opt</span>
+			<br/>
+			<span class="pun">)</span>
+			<br/>
+			<span class="kwd">if</span> <span class="pun">(</span><span class="pln">from</span><span class="pun">!</span><span class="str">"optional.traits"<wbr/></span><span class="pun">.</span><span class="pln">isOptional</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+					</div>
+				</code>
+			</div>
+			<section><p>Use this to safely access reference types, or to get at the raw value
+    of non reference types via a non-null pointer.
+</p>
+
+<p>    It is recommended that you access internal values by using <code class="lang-d"><a href="../../optional/optional/orElse.html"><span class="pln">orElse</span></a></code> instead though
+</p>
+</section>
+
+			<section><h2>Returns</h2>
+<p>Pointer to value or null if empty. If T is reference type, returns reference
+</p>
+</section>
+<section><h2>Example</h2>
+
+<pre class="code"><code class="lang-d"><span class="kwd">class </span><span class="pln">C </span><span class="pun">{
+    </span><span class="typ">int </span><span class="pln">i </span><span class="pun">= </span><span class="lit">3</span><span class="pun">;
+}
+
+</span><span class="kwd">auto </span><span class="pln">n </span><span class="pun">= <a href="../../optional/optional/no.html"></span><span class="pln">no</span></a><span class="pun">!</span><span class="pln">C</span><span class="pun">;
+</span><span class="kwd">if </span><span class="pun">(</span><span class="kwd">auto </span><span class="pln">u </span><span class="pun">= </span><span class="pln">n<wbr/></span><span class="pun">.</span><span class="pln">unwrap</span><span class="pun">) {} </span><span class="kwd">else </span><span class="pln">n </span><span class="pun">= <a href="../../optional/optional/some.html"></span><span class="pln">some</span></a><span class="pun">!</span><span class="pln">C</span><span class="pun">(</span><span class="kwd">null</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">n </span><span class="pun">== <a href="../../optional/optional/none.html"></span><span class="pln">none</span></a><span class="pun">);
+</span><span class="kwd">if </span><span class="pun">(</span><span class="kwd">auto </span><span class="pln">u </span><span class="pun">= </span><span class="pln">n<wbr/></span><span class="pun">.</span><span class="pln">unwrap</span><span class="pun">) {} </span><span class="kwd">else </span><span class="pln">n </span><span class="pun">= </span><span class="kwd">new </span><span class="pln">C</span><span class="pun">();
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">n<wbr/></span><span class="pun">.</span><span class="pln">unwrap </span><span class="pun">!</span><span class="kwd">is null</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">n<wbr/></span><span class="pun">.</span><span class="pln">unwrap<wbr/></span><span class="pun">.</span><span class="pln">i </span><span class="pun">== </span><span class="lit">3</span><span class="pun">);
+</span></code></pre>
+</section>
+
+			<footer>
+				<table class="license-info">
+					<tr>
+						<th>Authors</th>
+						<td>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>Copyright</th>
+						<td>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>License</th>
+						<td>
+							
+						</td>
+					</tr>
+				</table>
+				<p class="faint">Generated using the DDOX documentation generator</p>
+			</footer>
+		</div>
+	</body>
+</html>

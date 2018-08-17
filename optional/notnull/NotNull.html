@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Struct NotNull</title>
+		<link rel="stylesheet" type="text/css" href="../../styles/ddox.css"/>
+		<link rel="stylesheet" href="../../prettify/prettify.css" type="text/css"/>
+		<script type="text/javascript" src="../../scripts/jquery.js">/**/</script><script type="text/javascript" src="../../scripts/ddox.js">/**/</script>
+	</head>
+	<body onload="setupDdox();">
+		<nav id="main-nav">
+			<noscript>
+				<p style="color: red">The search functionality needs JavaScript enabled</p>
+			</noscript>
+			<div id="symbolSearchPane" style="display: none">
+				<form action="#" method="GET">
+					<input id="symbolSearch" type="text" name="q" placeholder="Search for symbols" autocomplete="off" onchange="performSymbolSearch(40);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/>
+				</form>
+				<ul id="symbolSearchResults" class="symbolList" style="display: none"></ul><script type="application/javascript" src="../../symbols.js"></script><script type="application/javascript">var symbolSearchRootDir = "../../";
+$('#symbolSearchPane').show();</script>
+			</div>
+			<ul class="tree-view">
+				<li class="tree-view ">
+					<div class="package ">
+						<a href="../../optional.html">optional</a>
+					</div>
+			<ul class="tree-view">
+				<li>
+					<div class="module selected">
+						<a href="../../optional/notnull.html">notnull</a>
+					</div>
+				</li>
+				<li>
+					<div class="module ">
+						<a href="../../optional/optional.html">optional</a>
+					</div>
+				</li>
+				<li>
+					<div class="module ">
+						<a href="../../optional/traits.html">traits</a>
+					</div>
+				</li>
+			</ul>
+				</li>
+			</ul>
+		</nav>
+		<div id="main-contents">
+			<h1>Struct NotNull</h1><p>A NotNull type ensure that the type you give it can never have a null value. So it is always
+    safe to use. It's specifically designed for pointers to values or classes. You can give it
+    a struct as well.
+</p>
+			<div class="prototype">
+				<code class="lang-d">
+					<div class="single-prototype">
+			<span class="kwd">struct</span> <span class="typ">NotNull</span>(T)
+			<span class="pun">;</span>
+					</div>
+				</code>
+			</div>
+			<section><p>The one thing to watch out for is inner classes or structs. Since <code class="lang-d"><a href="../../optional/notnull/notNull.html"><span class="pln">notNull</span></a></code> is a template function,
+    and it ensures that a type T is always created, it has to allocate memory. But inner classes and
+    structs need a context pointer to be <code class="lang-d"><span class="kwd">new</span></code>ed, so this only works with static inner classes and
+    structs.
+</p>
+
+<p>    the constructor is disabled, so you have to use the function <code class="lang-d"><a href="../../optional/notnull/notNull.html"><span class="pln">notNull</span></a></code> to construct <code class="lang-d"><span class="typ">NotNull</span></code> objects.
+</p>
+</section>
+
+			<section><h2>Constructors</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th><th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a href="../../optional/notnull/NotNull.this.html" class="public">
+								<code>this</code>
+							</a>
+						</td>
+						<td>You can only init from another <code class="lang-d"><a href="../../optional/notnull/NotNull.html"><span class="typ">NotNull</span></a></code> type.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section><h2>Methods</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th><th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a href="../../optional/notnull/NotNull.opAssign.html" class="public">
+								<code>opAssign</code>
+							</a>
+						</td>
+						<td>You can only asign to another <code class="lang-d"><a href="../../optional/notnull/NotNull.html"><span class="typ">NotNull</span></a></code> type.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section><h2>Example</h2>
+
+<pre class="code"><code class="lang-d"><span class="kwd">static class </span><span class="pln">C </span><span class="pun">{ </span><span class="typ">int </span><span class="pln">i</span><span class="pun">; </span><span class="typ">void </span><span class="pln">f</span><span class="pun">() { </span><span class="pln">i </span><span class="pun">= </span><span class="lit">3</span><span class="pun">; } }
+</span><span class="kwd">static struct </span><span class="pln">S </span><span class="pun">{ </span><span class="typ">int </span><span class="pln">i</span><span class="pun">; </span><span class="typ">void </span><span class="pln">f</span><span class="pun">() { </span><span class="pln">i </span><span class="pun">= </span><span class="lit">3</span><span class="pun">; } }
+
+</span><span class="typ">void </span><span class="pln">f0</span><span class="pun">(</span><span class="typ">NotNull</span><span class="pun">!</span><span class="pln">C c</span><span class="pun">) {
+    </span><span class="pln">c<wbr/></span><span class="pun">.</span><span class="pln">f</span><span class="pun">();
+}
+
+</span><span class="typ">void </span><span class="pln">f1</span><span class="pun">(</span><span class="typ">NotNull</span><span class="pun">!(</span><span class="pln">S</span><span class="pun">*) </span><span class="pln">sp</span><span class="pun">) {
+    </span><span class="pln">sp<wbr/></span><span class="pun">.</span><span class="pln">f</span><span class="pun">();
+}
+
+</span><span class="typ">void </span><span class="pln">f2</span><span class="pun">(</span><span class="kwd">ref </span><span class="typ">NotNull</span><span class="pun">!(</span><span class="pln">S</span><span class="pun">) </span><span class="pln">s</span><span class="pun">) {
+    </span><span class="pln">s<wbr/></span><span class="pun">.</span><span class="pln">f</span><span class="pun">();
+}
+
+</span><span class="kwd">auto </span><span class="pln">c </span><span class="pun">= <a href="../../optional/notnull/notNull.html"></span><span class="pln">notNull</span></a><span class="pun">!</span><span class="pln">C</span><span class="pun">;
+</span><span class="kwd">auto </span><span class="pln">sp </span><span class="pun">= <a href="../../optional/notnull/notNull.html"></span><span class="pln">notNull</span></a><span class="pun">!(</span><span class="pln">S</span><span class="pun">*);
+</span><span class="kwd">auto </span><span class="pln">s </span><span class="pun">= <a href="../../optional/notnull/notNull.html"></span><span class="pln">notNull</span></a><span class="pun">!</span><span class="pln">S</span><span class="pun">;
+
+</span><span class="pln">f0</span><span class="pun">(</span><span class="pln">c</span><span class="pun">);
+</span><span class="pln">f1</span><span class="pun">(</span><span class="pln">sp</span><span class="pun">);
+</span><span class="pln">f2</span><span class="pun">(</span><span class="pln">s</span><span class="pun">);
+
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">c<wbr/></span><span class="pun">.</span><span class="pln">i </span><span class="pun">== </span><span class="lit">3</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">sp<wbr/></span><span class="pun">.</span><span class="pln">i </span><span class="pun">== </span><span class="lit">3</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">s<wbr/></span><span class="pun">.</span><span class="pln">i </span><span class="pun">== </span><span class="lit">3</span><span class="pun">);
+</span></code></pre>
+</section>
+
+			<footer>
+				<table class="license-info">
+					<tr>
+						<th>Authors</th>
+						<td>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>Copyright</th>
+						<td>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>License</th>
+						<td>
+							
+						</td>
+					</tr>
+				</table>
+				<p class="faint">Generated using the DDOX documentation generator</p>
+			</footer>
+		</div>
+	</body>
+</html>
